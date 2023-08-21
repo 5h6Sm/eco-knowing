@@ -2,7 +2,7 @@
   <div id="app">
     <font-awesome-icon icon="fa-regular fa-user" />
     <div class="Login" @click="goToLogin">Login</div>
-    <div class="Login" >SignUp</div>
+    <div class="Login" @click="goToSignup">SignUp</div>
   </div>
 </template>
 
@@ -17,6 +17,9 @@ export default {
   methods: {
     goToLogin() {
       this.$router.push("/login");
+    },
+    goToSignup() {
+      this.$router.push("/signup");
     },
   },
 };

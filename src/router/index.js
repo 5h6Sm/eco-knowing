@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import LoginPage from '../components/LoginSignupComponents/LoginPage.vue';
+import SignUpPage from '../components/LoginSignupComponents/SignUpPage.vue';
 import LoginSignup from '../components/LoginSignup.vue';
+import MainComponent from '../components/MainComponent.vue';
 
 const routes = [
   {
@@ -9,11 +11,20 @@ const routes = [
     component: LoginSignup
   },
   {
-    path: '/login', // LoginPage 컴포넌트와 연결할 경로, 소문자로 변경
+    path: '/login', 
     name: 'LoginPage',
     component: LoginPage
+  },
+  {
+    path: '/signup',
+    name: 'SignUpPage',
+    component: SignUpPage
+  },
+  {
+    path: '/home',
+    name: 'MainComponent',
+    component: MainComponent
   }
-  // 다른 페이지 경로 및 컴포넌트를 추가
 ];
 
 const router = createRouter({
