@@ -7,6 +7,7 @@ import { far } from '@fortawesome/free-regular-svg-icons';
 import router from './router/index.js';
 import axios from './plugins/axios'; // 생성한 Axios 인스턴스를 import
 
+
 library.add(fas, far);
 
 const app = createApp(App);

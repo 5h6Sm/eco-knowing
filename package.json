@@ -12,13 +12,14 @@
     "axios": "^1.4.0",
     "core-js": "^3.8.3",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "feather-icons": "^4.29.1",
     "feather-icons-vue": "^1.0.4",
     "oracledb": "^5.5.0",
     "vue": "^3.3.4",
     "vue-feather": "^2.0.0",
-    "vue-router": "^4.2.4"
+    "vue-router": "^4.2.4",
+    "vuetify": "^3.3.14"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

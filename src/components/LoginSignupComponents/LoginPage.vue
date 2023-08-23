@@ -12,11 +12,13 @@
       </div>
       <button type="submit" style="width: 3vw; height: 1.5vw">Login</button>
     </form>
-    <!-- 성공하면 alert 으로 success 출력/-->
+    <p v-if="error" style="color: red">{{ error }}</p>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "LoginPage",
   data() {
@@ -29,19 +31,20 @@ export default {
   methods: {
     async login() {
       try {
-        const response = await this.$axios.post("/api/data", {
+        const response = await axios.post("http://localhost:3000/login_data", {
           id: this.id,
           pw: this.pw,
         });
         if (response.data.success) {
           this.error = "";
-          console.log("Login successful:", response.data.user);
-          // 로그인 성공 시 다음 작업 수행
+          console.log("로그인 성공", response.data.user);
+          this.$router.push("/home");
         } else {
           this.error = response.data.message;
+          console.log("로그인 실패", this.error);
         }
       } catch (error) {
-        console.error("Error during login:", error);
+        console.error("로그인 실패:", error);
       }
     },
   },
