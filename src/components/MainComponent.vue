@@ -10,43 +10,43 @@
     <div> 오늘의 경제 단어</div>
     <div  style="width:80vw;">
         <div class = "today-word" style="width:100%; display: flex; justify-content: space-evenly;">
-            <div id = "today_word_01"></div>
-            <div id = "today_word_02"></div>
-            <div id = "today_word_03"></div>
+            <div v-for="(row, rowIndex) in todayWords" :key="rowIndex">
+              <div v-for="(cell, columnIndex) in row" :key = "columnIndex">
+                {{ todayWords[rowIndex][columnIndex] }}
+              </div>
+            </div>
         </div>
         저장단어장
-        <div class="save-wordlist">
-            
+        <div class="save-wordlist" style="width:100%; display: flex; justify-content: space-evenly;">
+          <div v-for="(row, rowIndex) in save_wordlist" :key = "rowIndex">
+            {{ save_wordlist[rowIndex][1] }}
+            <!-- <div v-for="(cell, columnIndex) in row" :key = "columnIndex">
+            </div> -->
+          </div>
         </div>
     </div>
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
   name: 'MainComponent',
   data() {
     return {
       searchQuery: '',
-      data: [
-        // { id: 1, name: 'Apple' },
-        // { id: 2, name: 'Banana' },
-        // { id: 3, name: 'Cherry' },
-        // { id: 4, name: 'Date' },
-        // DB 연결해서 데이터 삽입
-      ],
+      todayWords: [],
+      save_wordlist : [],
     };
   },
-  computed: {
-    searchResults() {
-      if (this.searchQuery === '') {
-        return [];
-      }
+created(){
+  axios.get('http://localhost:3000/today_words_data').then(response => {
+    this.todayWords = response.data;
+  })
+  axios.get('http://localhost:3000/save_wordlist').then(response => {
+    this.save_wordlist = response.data;
+  })
 
-      return this.data.filter(item =>
-        item.name.toLowerCase().includes(this.searchQuery.toLowerCase())
-      );
-    },
-  },
+}
 
 };
 </script>

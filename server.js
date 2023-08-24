@@ -3,6 +3,8 @@ const oracledb = require("oracledb");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
+oracledb.autoCommit = true;
+
 const app = express();
 const port = 3000;
 
@@ -28,6 +30,7 @@ async function initConnectionPool() {
   });
 }
 
+//로그인 페이지에 필요한 데이터
 app.post("/login_data", async (req, res) => {
   const { id, pw } = req.body;
 
@@ -49,6 +52,7 @@ app.post("/login_data", async (req, res) => {
   }
 });
 
+//회원가입 페이지에 필요한 데이터
 app.post("/signup_data", async (req, res) => {
   const { user_name, id, pw, age } = req.body;
 
@@ -58,7 +62,8 @@ app.post("/signup_data", async (req, res) => {
       "INSERT INTO USERS (ID, NAME, AGE, PW) VALUES (:id, :name, :age, :pw)",
       [id, user_name, age, pw]
     );
-    await connection.commit(); // 커밋 추가
+    await connection.commit(); // 커밋!!
+
     await connection.close();
   
     console.log("회원가입 성공:", result);
@@ -69,6 +74,74 @@ app.post("/signup_data", async (req, res) => {
   }
   
 });
+
+//오늘의 경제단어에서 필요한 데이터(뿌려주기)
+app.post('/today_words_data', async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection(dbConfig);
+
+    const result = await connection.execute('SELECT * FROM today_words');
+    const data = result.rows;
+
+    // 연결 해제
+    await connection.close();
+
+    res.json(data);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+//저장한 단어장 데이터
+app.post('/save_wordlist', async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection(dbConfig);
+
+    const result = await connection.execute('SELECT * FROM wordlist');
+    const data = result.rows;
+
+    await connection.close();
+
+    res.json(data);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/save_wordlist', async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection(dbConfig);
+
+    const result = await connection.execute('SELECT * FROM wordlist');
+    const data = result.rows;
+
+    await connection.close();
+
+    res.json(data);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/today_words_data', async (req, res) => {
+  try {
+    const connection = await oracledb.getConnection(dbConfig);
+
+    const result = await connection.execute('SELECT * FROM today_words');
+    const data = result.rows;
+
+    await connection.close();
+
+    res.json(data);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 
 app.listen(port, () => {

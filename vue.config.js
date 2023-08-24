@@ -10,7 +10,17 @@ module.exports = defineConfig({
         withCredentials: true, 
       },
       '/signup_data' : {
-        arget: 'http://localhost:3000',
+        target: 'http://localhost:3000',
+        changeOrigin: false, 
+        withCredentials: true, 
+      },
+      '/today_words_data' : {
+        target: 'http://localhost:3000',
+        changeOrigin: false, 
+        withCredentials: true, 
+      },
+      '/save_wordlist' : {
+        target: 'http://localhost:3000',
         changeOrigin: false, 
         withCredentials: true, 
       }

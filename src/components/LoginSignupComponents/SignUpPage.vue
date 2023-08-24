@@ -49,7 +49,7 @@ export default {
         if (response.data.success) {
           console.log("회원가입 성공");
           alert("회원가입에 성공했습니다.");
-          // 회원가입 성공 후 다른 작업 수행
+          this.$router.push("/login");
         } else {
           console.log("회원가입 실패");
           alert("회원가입에 실패했습니다.");
