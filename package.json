@@ -2,6 +2,7 @@
   "name": "eco-knowing",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3000",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
@@ -13,13 +14,17 @@
     "core-js": "^3.8.3",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "feather-icons": "^4.29.1",
     "feather-icons-vue": "^1.0.4",
+    "http-proxy-middleware": "^2.0.6",
     "oracledb": "^5.5.0",
+    "store": "^2.0.12",
     "vue": "^3.3.4",
     "vue-feather": "^2.0.0",
     "vue-router": "^4.2.4",
-    "vuetify": "^3.3.14"
+    "vuetify": "^3.3.14",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",

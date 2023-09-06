@@ -17,7 +17,8 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
+import { mapMutations } from 'vuex';
 
 export default {
   name: "LoginPage",
@@ -35,19 +36,25 @@ export default {
           id: this.id,
           pw: this.pw,
         });
+
         if (response.data.success) {
-          this.error = "";
-          console.log("로그인 성공", response.data.user);
-          this.$router.push("/home");
+          this.error = '';
+          console.log('로그인 성공', response.data.user);
+          this.setUserId(response.data.user[0]);
+          this.addListId(response.data.user[4]);
+
+          this.$router.push({ name: 'main', params: { id: this.id } });
         } else {
           this.error = response.data.message;
-          console.log("로그인 실패", this.error);
+          console.log('로그인 실패', this.error);
         }
       } catch (error) {
-        console.error("로그인 실패:", error);
+        console.error('로그인 실패:', error);
       }
     },
+    ...mapMutations(['setUserId', 'addListId']),
   },
 };
 </script>
+
 <style></style>
